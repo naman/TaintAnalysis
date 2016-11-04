@@ -1,0 +1,10 @@
+Run using proper Args from Run Config.
+
+Assumption
+1. The local parameter name in the functions should be same as what we have in function invocation.
+2. Storing only tainted return variables in every function. 
+3. No variable should contain a dollar sign ($).
+4. No assignment should be there in print statements.
+5. A non library method invocation and a library method invocation cannot be present on the same line.
+6. Only 1 method invocation on each line.
+7. Methods with no arrguments can never return a tainted summary.
