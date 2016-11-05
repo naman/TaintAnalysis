@@ -1,8 +1,11 @@
 package taint2;
 
+/*
+ *  @author Srishti Sengupta, 2013108.
+ *  @author Naman Gupta, 2013064.
+ */
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import soot.MethodOrMethodContext;
@@ -17,7 +20,6 @@ import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.toolkits.graph.BriefUnitGraph;
 import soot.toolkits.scalar.ArraySparseSet;
 import soot.toolkits.scalar.FlowSet;
-import taint1.TaintAnalysis;
 
 public class TaintWrapper2 extends SceneTransformer {
 
@@ -27,7 +29,7 @@ public class TaintWrapper2 extends SceneTransformer {
 
 	@Override
 	protected void internalTransform(String arg0, Map arg1) {
-		String className = "pa.T6";
+		String className = "pa.Fact";
 
 		SootClass c = Scene.v().loadClassAndSupport(className);
 		c.setApplicationClass();
@@ -38,7 +40,8 @@ public class TaintWrapper2 extends SceneTransformer {
 
 			@Override
 			public boolean want(SootMethod method) {
-				if (method.isJavaLibraryMethod()) {
+				if (method.isJavaLibraryMethod()
+						|| method.getName() == "<init>") {
 					return false;
 				}
 				return true;
@@ -47,11 +50,10 @@ public class TaintWrapper2 extends SceneTransformer {
 
 		Iterator<MethodOrMethodContext> heads = cg.sourceMethods();
 
-		DirectedCallGraph dcg = new DirectedCallGraph(cg, filter, heads, false);
+		DirectedCallGraph dcg = new DirectedCallGraph(cg, filter, heads, true);
 
 		FlowSet tmp = new ArraySparseSet();
 
-		map.put("empty", tmp);
 		for (Object object : dcg) {
 			SootMethod method = (SootMethod) object;
 			map.put(method.getName(), tmp);
@@ -59,6 +61,9 @@ public class TaintWrapper2 extends SceneTransformer {
 
 		SootMethod tail = (SootMethod) dcg.getTails().get(0);
 		SootMethod head = (SootMethod) dcg.getHeads().get(0);
+
+		System.out.println("head " + head.getName());
+		System.out.println("tail " + tail.getName());
 
 		work(tail);
 
@@ -86,8 +91,9 @@ public class TaintWrapper2 extends SceneTransformer {
 	private void work(SootMethod method) {
 		String name = method.getName();
 
+		System.out.println("\nAnalysing " + name);
 		BriefUnitGraph g = new BriefUnitGraph(method.getActiveBody());
-		TaintAnalysis reach = new TaintAnalysis(g);
+		TaintAnalysis2 reach = new TaintAnalysis2(g);
 
 		map.put(name, reach.returnVar);
 		System.out.println("Summary of " + name + ":" + reach.returnVar);

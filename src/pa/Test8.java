@@ -1,7 +1,7 @@
 package pa;
 
 public class Test8 {
-	
+
 	public static void happy(int n) {
 		int status = 1;
 		int num = 3;

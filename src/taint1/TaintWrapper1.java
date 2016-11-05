@@ -1,5 +1,9 @@
 package taint1;
 
+/*
+ *  @author Srishti Sengupta, 2013108.
+ *  @author Naman Gupta, 2013064.
+ */
 import java.util.Map;
 
 import soot.Body;
@@ -14,7 +18,7 @@ public class TaintWrapper1 extends BodyTransformer {
 	protected void internalTransform(Body body, String phase, Map options) {
 		SootMethod sootMethod = body.getMethod();
 		UnitGraph g = new BriefUnitGraph(sootMethod.getActiveBody());
-		TaintAnalysis reach = new TaintAnalysis(g);
+		TaintAnalysis1 reach = new TaintAnalysis1(g);
 	}
 
 }
