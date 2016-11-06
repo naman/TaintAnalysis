@@ -1,9 +1,15 @@
-Run using proper Args from Run Config. Please see the screenshots for 2nd part as well.
+1. Run using proper Args from Run Config. 
+
+2. We have attempted the bonus part where a method invocation supports multiple arguments.
+
+3. Please see the screenshots for 2nd part as well.
 
 @author Srishti Sengupta, 2013108.
 @author Naman Gupta, 2013064.
 
 Assumption
+==========
+
 1. The local parameter name in the functions should be same as what we have in function invocation.
 2. Storing only tainted return variables in every function. 
 3. No variable should contain a dollar sign ($).
@@ -12,3 +18,4 @@ Assumption
 6. Only 1 method invocation on each line.
 7. Methods with no arguments or untainted args will never return a tainted summary.
 9. Max lines of code supported should be changed. 
+ 
