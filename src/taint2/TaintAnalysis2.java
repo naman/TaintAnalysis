@@ -124,13 +124,15 @@ public class TaintAnalysis2 extends ForwardFlowAnalysis {
 						taintedness.put(lineNumber, true);
 					}
 				} else { // arg variable
-					if (!islibraryMethod) {
+					
 						if (inval.contains(value.toString())) { // rhs me koi
 																// bhi
 							// variable is tainted
 							taintedArguments = true;
+						taintedness.put(lineNumber, true);
+
 						}
-					}
+					
 				}
 				if (isMethod && !islibraryMethod
 						&& value.toString().contains("invoke")
