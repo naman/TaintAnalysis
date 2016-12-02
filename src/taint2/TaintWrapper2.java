@@ -41,7 +41,8 @@ public class TaintWrapper2 extends SceneTransformer {
 			@Override
 			public boolean want(SootMethod method) {
 				if (method.isJavaLibraryMethod()
-						|| method.getName() == "<init>") {
+					|| method.getName().equals("<init>") 
+				    	|| method.getName().equals("<clinit>") {
 					return false;
 				}
 				return true;
